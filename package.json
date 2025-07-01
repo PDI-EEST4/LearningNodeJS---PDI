@@ -1,0 +1,18 @@
+{
+  "name": "learningnodejs",
+  "version": "1.0.0",
+  "description": "NodeJS es un entorno de ejecución de JavaScript que permite ejecutar código JavaScript en el servidor.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "diegohpezet",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemon": "^3.1.10"
+  }
+}
