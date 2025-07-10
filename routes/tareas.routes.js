@@ -1,42 +1,69 @@
 import express from 'express';
+import prisma from '../lib/prisma.js';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  return res.json({
-    message: 'Todas las tareas'
-  });
+router.get('/', async (req, res) => {
+  const tareas = await prisma.tarea.findMany();
+
+  return res.json(tareas);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
-  
-  return res.json({
-    message: `Tarea ${id}`
-  });
+  const tarea = await prisma.tarea.findUnique({
+    where: {
+      id: id
+    }
+  })
+
+  return res.json(tarea);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { titulo, descripcion, path } = req.body;
+  
+  await prisma.tarea.create({
+    data: {
+      titulo: titulo,
+      descripcion: descripcion,
+      path: path
+    }
+  })
 
   return res.json({
     message: `Tarea "${titulo}" creada con exito`,
-    tarea: req.body
   });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { titulo, descripcion, path } = req.body;
+
+  await prisma.tarea.update({
+    where: {
+      id: id
+    },
+    data: {
+      titulo: titulo,
+      descripcion: descripcion,
+      path: path
+    }
+  })
   
   return res.json({
     message: `Tarea ${id} actualizada con exito`,
-    tarea: req.body
   });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { id } = req.params;
+
+  await prisma.tarea.delete({
+    where: {
+      id: id
+    }
+  })
   
   return res.json({
     message: `Eliminar tarea ${id}`

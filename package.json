@@ -12,7 +12,11 @@
   "author": "diegohpezet",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^6.11.1",
     "express": "^4.21.2",
     "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "prisma": "^6.11.1"
   }
 }
