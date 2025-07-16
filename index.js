@@ -1,10 +1,12 @@
 import express from 'express';
 import routes from './routes/index.js';
+import cors from 'cors';
 
 const app = express();
 
 // Middlewares
 app.use(express.json());  // Para poder leer el req.body
+app.use(cors()); // Para recibir peticiones de otros dominios
 
 // Rutas
 app.use(routes);

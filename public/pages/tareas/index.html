@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <title>Listado de tareas</title>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <header>
+      <div class="row">
+        <div class="col">
+          <h1 class="h1">Listado de tareas</h1>
+          <p class="lead">Aquí puedes ver el listado de tareas</p>
+        </div>
+        <div class="col text-end">
+          <a href="./create.html" class="btn btn-primary">Crear tarea</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="root">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </main>
+  </div>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script type="module">
+    import { getTareas } from '../../js/api/tareas.js';
+    import { render } from '../../js/dom/tareas.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const tareas = await getTareas();
+      render(tareas);
+    });
+  </script>
+</body>
+
+</html>
