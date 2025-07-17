@@ -40,7 +40,8 @@
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.querySelector('#form-crear-tarea');
       form.addEventListener('submit', async (event) => {
-        event.preventDefault();
+        event.preventDefault(); 
+        // Obtenemos los datos del formulario
         const formData = new FormData(form);
         const tarea = {
           titulo: formData.get('titulo'),
@@ -48,6 +49,8 @@
           path: formData.get('path')
         };
         await createTarea(tarea);
+
+        // Redirigimos a la lista de tareas
         location.href = './index.html';
       });
     });

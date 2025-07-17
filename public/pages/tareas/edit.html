@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <title>Crear tarea</title>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <header>
+      <h1 class="h1">Editar una nueva tarea</h1>
+    </header>
+
+    <main id="root">
+      <form id="form-editar-tarea">
+        <div class="mb-3">
+          <label for="titulo" class="form-label">Titulo</label>
+          <input type="text" class="form-control" id="titulo" name="titulo">
+        </div>
+        <div class="mb-3">
+          <label for="descripcion" class="form-label">Descripcion</label>
+          <input type="text" class="form-control" id="descripcion" name="descripcion">
+        </div>
+        <div class="mb-3">
+          <label for="path" class="form-label">Path</label>
+          <input type="text" class="form-control" id="path" name="path">
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
+    </main>
+  </div>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script type="module">
+    import { getTarea, updateTarea } from '../../js/api/tareas.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const form = document.querySelector('#form-editar-tarea');
+      
+      // Setear la data del formulario
+      const id = new URLSearchParams(window.location.search).get('id');
+      const tarea = await getTarea(id);
+
+      form.querySelector('#titulo').value = tarea.titulo;
+      form.querySelector('#descripcion').value = tarea.descripcion;
+      form.querySelector('#path').value = tarea.path;
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault(); 
+        // Obtenemos los datos del formulario
+        const formData = new FormData(form);
+        const tarea = {
+          titulo: formData.get('titulo'),
+          descripcion: formData.get('descripcion'),
+          path: formData.get('path')
+        };
+        await updateTarea(id, tarea);
+
+        // Redirigimos a la lista de tareas
+        location.href = './index.html';
+      });
+    });
+  </script>
+</body>
+
+</html>
