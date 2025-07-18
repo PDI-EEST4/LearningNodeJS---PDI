@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <h1>Crear tarea</h1>
+    <form id="crear-tarea-form">
+      <label for="titulo">Titulo</label>
+      <input type="text" id="titulo" name="titulo">
+      
+      <label for="descripcion">Descripcion</label>
+      <input type="text" id="descripcion" name="descripcion">
+      
+      <label for="path">Path</label>
+      <input type="text" id="path" name="path">
+      
+      <button type="submit">Crear</button>
+    </form>
+</body>
+<script type="module">
+  import { createTarea } from '../../api/tareas.js'
+  const form = document.getElementById('crear-tarea-form')
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const formData = new FormData(form)
+
+    const titulo = formData.get('titulo')
+    const descripcion = formData.get('descripcion')
+    const path = formData.get('path')
+    
+    const tarea = {
+      titulo: formData.get('titulo'), 
+      descripcion: descripcion, 
+      path: path
+    }
+
+    await createTarea(tarea)
+    console.log("Tarea creada con exito!")
+  })
+</script>
+</html>
