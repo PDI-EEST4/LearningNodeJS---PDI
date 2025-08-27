@@ -1,5 +1,6 @@
 import express from 'express';
 import prisma from '../lib/prisma.js';
+import verifyToken from '../middlewares/verifyToken.js';
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.get('/:id', async (req, res) => {
   return res.json(tarea);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', verifyToken, async (req, res) => {
   const { titulo, descripcion, path } = req.body;
   
   await prisma.tarea.create({
@@ -36,7 +37,7 @@ router.post('/', async (req, res) => {
   });
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifyToken, async (req, res) => {
   const { id } = req.params;
   const { titulo, descripcion, path } = req.body;
 
@@ -56,7 +57,7 @@ router.put('/:id', async (req, res) => {
   });
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   const { id } = req.params;
 
   await prisma.tarea.delete({

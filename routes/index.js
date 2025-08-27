@@ -1,9 +1,11 @@
 import express from 'express';
 import tareasRouter from './tareas.routes.js';
+import authRouter from './auth.routes.js';
 
 const router = express.Router();
 
 router.use('/tareas', tareasRouter);
+router.use('/auth', authRouter);
 /* router.use('/otraCosa', otroRouter) */
 
 router.get('/', (req, res) => {
